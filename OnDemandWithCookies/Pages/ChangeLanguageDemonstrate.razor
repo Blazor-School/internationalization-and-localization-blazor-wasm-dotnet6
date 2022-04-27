@@ -1,0 +1,9 @@
+﻿@page "/change-language-demonstrate"
+@using Microsoft.Extensions.Localization
+@using OnDemandWithCookies.Utils
+@inject IStringLocalizer<ChangeLanguageDemonstrate> Localizer
+
+<h3>ChangeLanguageDemonstrate</h3>
+@Localizer["String1"]
+<LanguageSelector />
+<button type="button" @onclick="StateHasChanged">Test</button>
