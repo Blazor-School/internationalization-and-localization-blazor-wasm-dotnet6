@@ -1,24 +1,28 @@
 ﻿@using System.Globalization
 @using Microsoft.AspNetCore.Localization
+@using OnDemandWithCookies.Utils
 @inject IJSRuntime JSRuntime
+@inject BlazorSchoolCultureProvider BlazorSchoolCultureProvider 
 
 <select @onchange="OnChangeLanguage">
     <option value="">Select</option>
-    <option value="en-US">English</option>
-    <option value="fr-FR">France</option>
+    <option value="en">English</option>
+    <option value="fr">France</option>
 </select>
 
 @code {
+    [CascadingParameter(Name = "Test")]
+    public RenderFragment? RootComponentRefresh { get; set; }
+
     private void OnChangeLanguage(ChangeEventArgs e)
     {
         if (string.IsNullOrEmpty(e.Value?.ToString()) is false)
         {
-            string selectedLanguage = e.Value.ToString();
+            string selectedLanguage = e.Value.ToString()!;
             CultureInfo.DefaultThreadCurrentCulture = new CultureInfo(selectedLanguage);
             CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo(selectedLanguage);
-            //CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo((string)e.Value);
-            //CultureInfo.CurrentUICulture = CultureInfo.GetCultureInfo((string)e.Value);
             InvokeAsync(() => JSRuntime.InvokeVoidAsync("BlazorSchoolUtil.updateCookies", CookieRequestCultureProvider.DefaultCookieName, CookieRequestCultureProvider.MakeCookieValue(new(CultureInfo.CurrentCulture, CultureInfo.CurrentUICulture))));
+            BlazorSchoolCultureProvider.NotifyLanguageChange();
         }
     }
 }

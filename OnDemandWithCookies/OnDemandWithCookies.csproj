@@ -4,8 +4,9 @@
 		<TargetFramework>net6.0</TargetFramework>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
+		<BlazorWebAssemblyLoadAllGlobalizationData>true</BlazorWebAssemblyLoadAllGlobalizationData>
 	</PropertyGroup>
-	
+
 	<ItemGroup>
 		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.4" />
 		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.4" PrivateAssets="all" />
@@ -29,6 +30,18 @@
 
 	<ItemGroup>
 		<_ContentIncludedByDefault Remove="Shared\LanguageSelector.razor" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Update="BlazorSchoolResources\Pages\ChangeLanguageDemonstrate.en.resx">
+			<Generator></Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="BlazorSchoolResources\Pages\ChangeLanguageDemonstrate.fr.resx">
+			<Generator></Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="BlazorSchoolResources\Pages\ChangeLanguageDemonstrate.resx">
+			<Generator></Generator>
+		</EmbeddedResource>
 	</ItemGroup>
 
 </Project>

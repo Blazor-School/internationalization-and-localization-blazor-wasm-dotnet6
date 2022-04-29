@@ -13,6 +13,7 @@ public class BlazorSchoolStringLocalizer<TComponent> : IStringLocalizer<TCompone
 
     public LocalizedString this[string name] => FindLocalziedString(name);
     public LocalizedString this[string name, params object[] arguments] => FindLocalziedString(name, arguments);
+    
 
     public BlazorSchoolStringLocalizer(IOptions<LocalizationOptions> localizationOptions)
     {
@@ -41,14 +42,13 @@ public class BlazorSchoolStringLocalizer<TComponent> : IStringLocalizer<TCompone
 
     private LocalizedString FindLocalziedString(string name, object[]? arguments = null)
     {
-        var resourceManager = new ResourceManager("OnDemandWithCookies.BlazorSchoolResources.Pages.ChangeLanguageDemonstrate", Assembly.GetExecutingAssembly());
+        var resourceManager = CreateResourceManager();
         LocalizedString result;
 
         try
         {
-            string? value = resourceManager.GetString(name, CultureInfo.GetCultureInfo("fr"));
-
-            if(string.IsNullOrEmpty(value))
+            string? value = resourceManager.GetString(name, CultureInfo.DefaultThreadCurrentCulture);
+            if (string.IsNullOrEmpty(value))
             {
                 throw new Exception($"The translation key {name} not found.");
             }
