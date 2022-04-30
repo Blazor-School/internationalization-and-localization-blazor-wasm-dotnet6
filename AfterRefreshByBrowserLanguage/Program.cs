@@ -1,4 +1,4 @@
-using AfterRefreshByBrowserLanguage;
+using DeferTranslationByBrowserLanguage;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 

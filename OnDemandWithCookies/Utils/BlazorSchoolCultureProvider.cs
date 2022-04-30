@@ -5,7 +5,7 @@ using System.Globalization;
 using System.Reflection;
 using System.Runtime.Loader;
 
-namespace OnDemandWithCookies.Utils;
+namespace InstantTranslationWithCookies.Utils;
 
 public class BlazorSchoolCultureProvider
 {
@@ -54,6 +54,7 @@ public class BlazorSchoolCultureProvider
     }
 
     public void SubscribeLanguageChange(ComponentBase component) => _subscribedComponents.Add(component);
+
     public void UnsubscribeLanguageChange(ComponentBase component) => _subscribedComponents.Remove(component);
 
     public void NotifyLanguageChange()

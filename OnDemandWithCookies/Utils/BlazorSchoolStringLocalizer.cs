@@ -5,7 +5,7 @@ using System.Globalization;
 using System.Reflection;
 using System.Resources;
 
-namespace OnDemandWithCookies.Utils;
+namespace InstantTranslationWithCookies.Utils;
 
 public class BlazorSchoolStringLocalizer<TComponent> : IStringLocalizer<TComponent>
 {
@@ -28,8 +28,7 @@ public class BlazorSchoolStringLocalizer<TComponent> : IStringLocalizer<TCompone
         try
         {
             var resourceSet = resourceManager.GetResourceSet(CultureInfo.DefaultThreadCurrentCulture, true, true);
-            result = resourceSet.Cast<DictionaryEntry>().Select(item =>
-                    new LocalizedString((string)item.Key, (string)item.Value, false, GetResourceLocaltion()))
+            result = resourceSet.Cast<DictionaryEntry>().Select(item => new LocalizedString((string)item.Key, (string)item.Value, false, GetResourceLocaltion()))
                 .ToList();
         }
         catch

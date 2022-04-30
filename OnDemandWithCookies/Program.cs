@@ -2,8 +2,8 @@ using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
-using OnDemandWithCookies;
-using OnDemandWithCookies.Utils;
+using InstantTranslationWithCookies;
+using InstantTranslationWithCookies.Utils;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");

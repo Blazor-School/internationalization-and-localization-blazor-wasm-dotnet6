@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32407.343
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AfterRefreshWithLocalStorage", "AfterRefreshWithLocalStorage\AfterRefreshWithLocalStorage.csproj", "{B1588F31-FBA2-4F9A-B555-9EEC0C774E14}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeferTranslationWithLocalStorage", "AfterRefreshWithLocalStorage\DeferTranslationWithLocalStorage.csproj", "{B1588F31-FBA2-4F9A-B555-9EEC0C774E14}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AfterRefreshByBrowserLanguage", "AfterRefreshByBrowserLanguage\AfterRefreshByBrowserLanguage.csproj", "{614EA956-33CD-4980-8969-57ABDD950ECB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeferTranslationByBrowserLanguage", "AfterRefreshByBrowserLanguage\DeferTranslationByBrowserLanguage.csproj", "{614EA956-33CD-4980-8969-57ABDD950ECB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnDemandWithCookies", "OnDemandWithCookies\OnDemandWithCookies.csproj", "{D5537BD2-A9D2-4A19-8B6B-29A1E3C6B7CA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InstantTranslationWithCookies", "OnDemandWithCookies\InstantTranslationWithCookies.csproj", "{D5537BD2-A9D2-4A19-8B6B-29A1E3C6B7CA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

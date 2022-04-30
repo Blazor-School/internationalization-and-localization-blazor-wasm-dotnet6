@@ -1,4 +1,9 @@
-﻿@inherits LayoutComponentBase
+﻿@using Microsoft.Extensions.Localization
+@using InstantTranslationWithCookies.Utils
+@inherits LayoutComponentBase
+@inject IStringLocalizer<MainLayout> Localizer
+@inject BlazorSchoolCultureProvider BlazorSchoolCultureProvider
+@implements IDisposable
 
 <div class="page">
     <div class="sidebar">
@@ -7,10 +12,15 @@
 
     <main>
         <div class="top-row px-4">
-            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
+            <a href="https://blazorschool.com" target="_blank">@Localizer["String1"]</a>
         </div>
         <article class="content px-4">
             @Body
         </article>
     </main>
 </div>
+
+@code {
+    protected override void OnInitialized() => BlazorSchoolCultureProvider.SubscribeLanguageChange(this);
+    public void Dispose() => BlazorSchoolCultureProvider.UnsubscribeLanguageChange(this);
+}

@@ -8,7 +8,7 @@
     }
   },
   "profiles": {
-    "AfterRefreshWithLocalStorage": {
+    "DeferTranslationWithLocalStorage": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,
