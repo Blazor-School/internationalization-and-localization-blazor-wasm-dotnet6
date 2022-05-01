@@ -13,13 +13,4 @@
 		<PackageReference Include="Microsoft.Extensions.Localization" Version="6.0.4" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Content Update="Pages\Index.razor">
-	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-	  </Content>
-	  <Content Update="Shared\NavMenu.razor">
-	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-	  </Content>
-	</ItemGroup>
-
 </Project>

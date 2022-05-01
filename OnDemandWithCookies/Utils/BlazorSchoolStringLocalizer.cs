@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Localization;
+﻿using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
 using System.Collections;
 using System.Globalization;
@@ -7,7 +8,7 @@ using System.Resources;
 
 namespace InstantTranslationWithCookies.Utils;
 
-public class BlazorSchoolStringLocalizer<TComponent> : IStringLocalizer<TComponent>
+public class BlazorSchoolStringLocalizer<TComponent> : IStringLocalizer<TComponent> where TComponent : ComponentBase
 {
     private readonly IOptions<LocalizationOptions> _localizationOptions;
 

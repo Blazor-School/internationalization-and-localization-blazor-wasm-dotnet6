@@ -1,6 +1,6 @@
 ﻿@using System.Globalization
 @using Microsoft.AspNetCore.Localization
-@using InstantTranslationWithCookies.Utils
+@using InstantTranslationWithUrl.Utils
 @inject IJSRuntime JSRuntime
 @inject BlazorSchoolCultureProvider BlazorSchoolCultureProvider 
 
@@ -19,7 +19,7 @@
             CultureInfo.DefaultThreadCurrentCulture = new CultureInfo(selectedLanguage);
             CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo(selectedLanguage);
             InvokeAsync(() => JSRuntime.InvokeVoidAsync("BlazorSchoolUtil.updateCookies", CookieRequestCultureProvider.DefaultCookieName, CookieRequestCultureProvider.MakeCookieValue(new(CultureInfo.CurrentCulture, CultureInfo.CurrentUICulture))));
-            BlazorSchoolCultureProvider.NotifyLanguageChange();
+            InvokeAsync(BlazorSchoolCultureProvider.NotifyLanguageChangeAsync);
         }
     }
 }

@@ -1,0 +1,16 @@
+﻿@page "/change-language-demonstrate"
+@using Microsoft.Extensions.Localization
+@using InstantTranslationWithUrl.Utils
+@inject BlazorSchoolStringLocalizer<ChangeLanguageDemonstrate> Localizer
+@inject BlazorSchoolCultureProvider BlazorSchoolCultureProvider
+@implements IDisposable
+
+<PageTitle>@Localizer["String1"]</PageTitle>
+<h3>ChangeLanguageDemonstrate</h3>
+@Localizer["String1"]
+<LanguageSelector />
+
+@code {
+    protected override async Task OnInitializedAsync() => await BlazorSchoolCultureProvider.SubscribeLanguageChange<ChangeLanguageDemonstrate>(this);
+    public void Dispose() => BlazorSchoolCultureProvider.UnsubscribeLanguageChange(this);
+}
