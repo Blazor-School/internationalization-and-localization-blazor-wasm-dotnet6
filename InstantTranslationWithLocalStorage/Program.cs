@@ -1,5 +1,5 @@
-using InstantTranslationWithUrl;
-using InstantTranslationWithUrl.Utils;
+using InstantTranslationWithLocalStorage;
+using InstantTranslationWithLocalStorage.Utils;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Localization;
@@ -20,7 +20,7 @@ var culturesProvider = wasmHost.Services.GetService<BlazorSchoolCultureProvider>
 
 if (culturesProvider is not null)
 {
-    culturesProvider.SetStartupLanguage("fr");
+    await culturesProvider.SetStartupLanguageAsync("fr");
 }
 
 await wasmHost.RunAsync();

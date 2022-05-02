@@ -1,6 +1,7 @@
 ﻿@using System.Globalization
+@using InstantTranslationWithLocalStorage.Utils
 @using Microsoft.AspNetCore.Localization
-@using InstantTranslationWithUrl.Utils
+@inject IJSRuntime JSRuntime
 @inject BlazorSchoolCultureProvider BlazorSchoolCultureProvider 
 
 <select @onchange="OnChangeLanguage">
@@ -17,6 +18,7 @@
             string selectedLanguage = e.Value.ToString()!;
             CultureInfo.DefaultThreadCurrentCulture = new CultureInfo(selectedLanguage);
             CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo(selectedLanguage);
+            InvokeAsync(() => JSRuntime.InvokeVoidAsync("blazorCulture.set", selectedLanguage));
             InvokeAsync(BlazorSchoolCultureProvider.NotifyLanguageChangeAsync);
         }
     }

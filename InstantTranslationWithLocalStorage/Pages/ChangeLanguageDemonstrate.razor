@@ -1,7 +1,7 @@
 ﻿@page "/change-language-demonstrate"
+@using InstantTranslationWithLocalStorage.Utils
 @using Microsoft.Extensions.Localization
-@using InstantTranslationWithUrl.Utils
-@inject BlazorSchoolStringLocalizer<ChangeLanguageDemonstrate> Localizer
+@inject IStringLocalizer<ChangeLanguageDemonstrate> Localizer
 @inject BlazorSchoolCultureProvider BlazorSchoolCultureProvider
 @implements IDisposable
 

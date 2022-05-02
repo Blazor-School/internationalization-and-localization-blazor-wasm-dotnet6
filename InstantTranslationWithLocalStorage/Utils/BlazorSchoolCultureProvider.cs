@@ -1,37 +1,26 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
+using Microsoft.JSInterop;
 using System.Globalization;
 using System.Reflection;
-using System.Web;
 
-namespace InstantTranslationWithUrl.Utils;
+namespace InstantTranslationWithLocalStorage.Utils;
 
-public class BlazorSchoolCultureProvider : IDisposable
+public class BlazorSchoolCultureProvider
 {
     private readonly List<ComponentBase> _subscribedComponents = new();
     private readonly HttpClient _httpClient;
     private readonly IOptions<LocalizationOptions> _localizationOptions;
     private readonly BlazorSchoolResourceMemoryStorage _blazorSchoolResourceMemoryStorage;
-    private readonly NavigationManager _navigationManager;
-    private string _fallbackLanguage;
+    private readonly IJSRuntime _jsRuntime;
 
-    public BlazorSchoolCultureProvider(IHttpClientFactory httpClientFactory, IOptions<LocalizationOptions> localizationOptions, BlazorSchoolResourceMemoryStorage blazorSchoolResourceMemoryStorage, NavigationManager navigationManager)
+    public BlazorSchoolCultureProvider(IHttpClientFactory httpClientFactory, IOptions<LocalizationOptions> localizationOptions, BlazorSchoolResourceMemoryStorage blazorSchoolResourceMemoryStorage, IJSRuntime jsRuntime)
     {
         _httpClient = httpClientFactory.CreateClient("InternalHttpClient");
         _localizationOptions = localizationOptions;
         _blazorSchoolResourceMemoryStorage = blazorSchoolResourceMemoryStorage;
-        _navigationManager = navigationManager;
-        _navigationManager.LocationChanged += OnLocationChanged;
-        _fallbackLanguage = "";
-    }
-
-    private async void OnLocationChanged(object? sender, Microsoft.AspNetCore.Components.Routing.LocationChangedEventArgs e)
-    {
-        string languageFromUrl = GetLanguageFromUrl();
-        CultureInfo.DefaultThreadCurrentCulture = new CultureInfo(languageFromUrl);
-        CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo(languageFromUrl);
-        await NotifyLanguageChangeAsync();
+        _jsRuntime = jsRuntime;
     }
 
     private async Task<string> LoadCultureAsync(ComponentBase component)
@@ -50,6 +39,7 @@ public class BlazorSchoolCultureProvider : IDisposable
 
         var message = await _httpClient.GetAsync(ComposeComponentPath(componentName, CultureInfo.DefaultThreadCurrentCulture!.Name));
         string result;
+
         if (message.IsSuccessStatusCode is false)
         {
             var retryMessage = await _httpClient.GetAsync(ComposeComponentPath(componentName));
@@ -73,13 +63,23 @@ public class BlazorSchoolCultureProvider : IDisposable
         return result;
     }
 
-    public void SetStartupLanguage(string fallbackLanguage)
+    public async Task SetStartupLanguageAsync(string fallbackLanguage)
     {
-        _fallbackLanguage = fallbackLanguage;
-        string languageFromUrl = GetLanguageFromUrl();
-        CultureInfo.DefaultThreadCurrentCulture = new CultureInfo(languageFromUrl);
-        CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo(languageFromUrl);
+        string languageFromLocalStorage = await GetLanguageFromLocalStorageAsync();
+
+        if (string.IsNullOrEmpty(languageFromLocalStorage))
+        {
+            CultureInfo.DefaultThreadCurrentCulture = new CultureInfo(fallbackLanguage);
+            CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo(fallbackLanguage);
+        }
+        else
+        {
+            CultureInfo.DefaultThreadCurrentCulture = new CultureInfo(languageFromLocalStorage);
+            CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo(languageFromLocalStorage);
+        }
     }
+
+    private async Task<string> GetLanguageFromLocalStorageAsync() => await _jsRuntime.InvokeAsync<string>("blazorCulture.get");
 
     public async Task SubscribeLanguageChangeAsync(ComponentBase component)
     {
@@ -102,14 +102,6 @@ public class BlazorSchoolCultureProvider : IDisposable
         }
     }
 
-    public string GetLanguageFromUrl()
-    {
-        var uri = new Uri(_navigationManager.Uri);
-        var urlParameters = HttpUtility.ParseQueryString(uri.Query);
-
-        return string.IsNullOrEmpty(urlParameters["language"]) ? _fallbackLanguage : urlParameters["language"]!;
-    }
-
     private string ComposeComponentPath(string componentTypeName, string language = "")
     {
         var nameParts = componentTypeName.Split('.').ToList();
@@ -121,6 +113,4 @@ public class BlazorSchoolCultureProvider : IDisposable
 
         return resourceLocaltion;
     }
-
-    public void Dispose() => _navigationManager.LocationChanged -= OnLocationChanged;
 }
