@@ -8,12 +8,6 @@
 </select>
 
 @code {
-    public List<string> Languages { get; set; } = new()
-    {
-        "en-US",
-        "fr"
-    };
-
     private void OnChangeLanguage(ChangeEventArgs e)
     {
         string selectedLanguage = e.Value?.ToString() ?? "en-US";
