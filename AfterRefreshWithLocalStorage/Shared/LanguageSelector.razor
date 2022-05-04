@@ -18,7 +18,5 @@
     {
         string selectedLanguage = e.Value?.ToString() ?? "en-US";
         InvokeAsync(() => JSRuntime.InvokeVoidAsync("blazorCulture.set", selectedLanguage));
-        CultureInfo.DefaultThreadCurrentCulture = new CultureInfo(selectedLanguage);
-        CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo(selectedLanguage);
     }
 }
