@@ -65,7 +65,7 @@ public class BlazorSchoolCultureProvider
 
     public async Task SetStartupLanguageAsync(string fallbackLanguage)
     {
-        string languageFromLocalStorage = await GetLanguageFromLocalStorageAsync();
+        string languageFromLocalStorage = await _jsRuntime.InvokeAsync<string>("blazorCulture.get");
 
         if (string.IsNullOrEmpty(languageFromLocalStorage))
         {
@@ -78,8 +78,6 @@ public class BlazorSchoolCultureProvider
             CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo(languageFromLocalStorage);
         }
     }
-
-    private async Task<string> GetLanguageFromLocalStorageAsync() => await _jsRuntime.InvokeAsync<string>("blazorCulture.get");
 
     public async Task SubscribeLanguageChangeAsync(ComponentBase component)
     {
