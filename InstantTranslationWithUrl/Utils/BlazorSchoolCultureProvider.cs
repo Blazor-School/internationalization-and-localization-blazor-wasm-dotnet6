@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
 using System.Globalization;
@@ -26,7 +27,7 @@ public class BlazorSchoolCultureProvider : IDisposable
         _fallbackLanguage = "";
     }
 
-    private async void OnLocationChanged(object? sender, Microsoft.AspNetCore.Components.Routing.LocationChangedEventArgs e)
+    private async void OnLocationChanged(object? sender, LocationChangedEventArgs e)
     {
         string languageFromUrl = GetLanguageFromUrl();
         CultureInfo.DefaultThreadCurrentCulture = new CultureInfo(languageFromUrl);
