@@ -10,7 +10,6 @@ builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
-builder.Services.AddScoped(typeof(IStringLocalizer<>), typeof(BlazorSchoolStringLocalizer<>));
 builder.Services.AddScoped(sp => (IJSUnmarshalledRuntime)sp.GetRequiredService<IJSRuntime>());
 builder.Services.AddScoped<BlazorSchoolCultureProvider>();
 builder.Services.AddLocalization(options => options.ResourcesPath = "BlazorSchoolResources");
